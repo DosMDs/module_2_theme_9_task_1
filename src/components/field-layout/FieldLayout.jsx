@@ -1,8 +1,8 @@
 import { useDispatch, useSelector } from "react-redux";
 import styles from "./field-layout.module.css";
-import { selectGameData } from "../../selectors";
-import { isWin } from "../../utils";
-import { setMove, setIsDraw, setIsGameEnding } from "../../gameSlice";
+import { selectGameData } from "@selectors";
+import { isWin } from "@utils";
+import { setMove, setIsDraw, setIsGameEnding } from "@gameSlice";
 
 export const FieldLayout = () => {
 	const { field, currentPlayer, isGameEnding, isDraw } =

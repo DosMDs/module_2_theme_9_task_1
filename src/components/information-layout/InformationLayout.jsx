@@ -1,7 +1,7 @@
 import styles from "./information-layout.module.css";
 import { useSelector, useDispatch } from "react-redux";
-import { gameRestart } from "../../gameSlice";
-import { selectGameData } from "../../selectors";
+import { gameRestart } from "@gameSlice";
+import { selectGameData } from "@selectors";
 
 export const InformationLayout = () => {
 	const { currentPlayer, isDraw, isGameEnding } = useSelector(selectGameData);

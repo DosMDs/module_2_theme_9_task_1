@@ -1,0 +1,12 @@
+{
+	"compilerOptions": {
+		"baseUrl": ".",
+		"paths": {
+			"@/*": ["src/*"],
+			"@selectors/*": ["src/selectors/*"],
+			"@utils": ["src/utils.js"],
+			"@gameSlice": ["src/gameSlice.js"]
+		}
+	},
+	"include": ["src"]
+}
