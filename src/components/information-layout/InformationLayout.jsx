@@ -1,8 +1,11 @@
 import styles from "./information-layout.module.css";
-import { useGameData } from "../../hooks";
+import { useSelector, useDispatch } from "react-redux";
+import { gameRestart } from "../../gameSlice";
+import { selectGameData } from "../../selectors";
 
 export const InformationLayout = () => {
-	const { currentPlayer, isDraw, isGameEnding, store } = useGameData();
+	const { currentPlayer, isDraw, isGameEnding } = useSelector(selectGameData);
+	const dispatch = useDispatch();
 
 	let textInfo = `Ходит: ${currentPlayer}`;
 	if (isDraw) {
@@ -12,7 +15,7 @@ export const InformationLayout = () => {
 	}
 
 	const handleRestart = () => {
-		store.dispatch({ type: "GAME_RESTART" });
+		dispatch(gameRestart());
 	};
 
 	const showRestart = isDraw || isGameEnding;

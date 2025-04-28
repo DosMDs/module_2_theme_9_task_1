@@ -1,28 +1,31 @@
+import { useDispatch, useSelector } from "react-redux";
 import styles from "./field-layout.module.css";
-import { useGameData } from "../../hooks";
+import { selectGameData } from "../../selectors";
+import { isWin } from "../../utils";
+import { setMove, setIsDraw, setIsGameEnding } from "../../gameSlice";
 
 export const FieldLayout = () => {
-	const { field, isGameEnding, isDraw, currentPlayer, store, isWin } =
-		useGameData();
+	const { field, currentPlayer, isGameEnding, isDraw } =
+		useSelector(selectGameData);
+	const dispatch = useDispatch();
 
 	const update = (index) => {
 		if (field[index] !== "" || isGameEnding || isDraw) {
 			return;
 		}
 
-		const newField = [...field];
-		newField[index] = currentPlayer;
-		if (isWin(newField)) {
-			store.dispatch({ type: "SET_IS_GAME_ENDING" });
-		} else if (newField.find((el) => el === "") === undefined) {
-			store.dispatch({ type: "SET_IS_DRAW" });
+		const move = { field: [...field], currentPlayer };
+
+		move.field[index] = currentPlayer;
+
+		if (isWin(move.field)) {
+			dispatch(setIsGameEnding());
+		} else if (move.field.find((el) => el === "") === undefined) {
+			dispatch(setIsDraw);
 		} else {
-			store.dispatch({
-				type: "SET_CURRENT_PLAYER",
-				payload: currentPlayer === "X" ? "0" : "X",
-			});
+			move.currentPlayer = currentPlayer === "X" ? "0" : "X";
 		}
-		store.dispatch({ type: "SET_FIELD", payload: newField });
+		dispatch(setMove(move));
 	};
 
 	return (
